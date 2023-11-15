@@ -13,58 +13,84 @@ def make_window():
     data = [["John", 10], ["Jen", 5]]
     headings = ["Name", "Score"]
 
+
+    
+
     global_layout =  [
 
                 # [sg.Menu(menu_def, key='-MENU-')],
-                [sg.Text('ViewMode'), sg.Combo(values=('FlyWithMe', 'SpringArmChase'), default_value='FlyWithMe', readonly=True, k='-COMBO-')], 
-                [sg.Text('ClockType'), sg.Combo(values=('SteppableClock', 'ScalableClock'), default_value='SteppableClock', readonly=True, k='-COMBO-')], 
+                [sg.Text('ViewMode'), sg.Combo(values=('FlyWithMe', 'SpringArmChase'), default_value='FlyWithMe', readonly=True, k='-COMBO-'), sg.Text('ClockType'), sg.Combo(values=('SteppableClock', 'ScalableClock'), default_value='SteppableClock', readonly=True, k='-COMBO-')], 
+
                 [sg.Text('SimMode'), sg.Combo(values=('Multirotor', 'Car', 'ComputerVision'), default_value='Multirotor', readonly=True, k='-COMBO-')], 
                  
                 [sg.Text('ClockSpeed'), sg.Slider(range=(0.1, 2), orientation='h', size=(10, 10), resolution=0.1, default_value=1, key='-SKIDER-'),], 
-                  [sg.Image(data=sg.DEFAULT_BASE64_LOADING_GIF, enable_events=True, key='-GIF-IMAGE-'),],
-                # [sg.Checkbox('Checkbox', default=True, k='-CB-')],
-                # [sg.Radio('Radio1', "RadioDemo", default=True, size=(10,1), k='-R1-'), sg.Radio('Radio2', "RadioDemo", default=True, size=(10,1), k='-R2-')],
-                # [sg.Combo(values=('Combo 1', 'Combo 2', 'Combo 3'), default_value='Combo 1', readonly=False, k='-COMBO-'),
-                #  sg.OptionMenu(values=('Option 1', 'Option 2', 'Option 3'),  k='-OPTION MENU-'),],
-                # [sg.Spin([i for i in range(1,11)], initial_value=10, k='-SPIN-'), sg.Text('Spin')],
-                # [sg.Multiline('Demo of a Multi-Line Text Element!\nLine 2\nLine 3\nLine 4\nLine 5\nLine 6\nLine 7\nYou get the point.', size=(45,5), expand_x=True, expand_y=True, k='-MLINE-')],
-                # [sg.Button('Button'), sg.Button('Popup'), sg.Button(image_data=sg.DEFAULT_BASE64_ICON, key='-LOGO-')]
+                # [sg.Image(data=sg.DEFAULT_BASE64_LOADING_GIF, enable_events=True, key='-GIF-IMAGE-'),],
+
+                [sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color()), sg.Checkbox('OriginGeopoint', default=False, k='-CB-', enable_events=True), sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color())],
+
+                [
+                    sg.Text('N'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                    sg.Text('E'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                    sg.Text('D'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                ],
+
+                [sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color()), sg.Checkbox('TimeOfDay', default=False, k='-CB-', enable_events=True), sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color())],
+                [sg.Text('CelestialClockSpeed'), sg.Slider(range=(1, 500), orientation='h', size=(10, 10), resolution=1, default_value=60, key='-SKIDER-'), sg.Text('UpdateIntervalSecs'), sg.Slider(range=(1, 60), orientation='h', size=(10, 10), resolution=1, default_value=1, key='-SKIDER-'),],
+                [sg.Checkbox('StartDateTimeDst', default=False, k='-CB-'),],
+                [sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color()), sg.Checkbox('Wind', default=False, k='-CB-', enable_events=True), sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color())],
+                [
+                    sg.Text('N'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                    sg.Text('E'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                    sg.Text('D'), sg.Input(key='_INPUT_', size=(9, 1)), 
+                ],
+
+                [sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color()), sg.Checkbox('Recording', default=False, k='-CB-', enable_events=True), sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color())],
+                [sg.Checkbox('RecordUIVisible', default=False, k='-CB-')], 
+                [sg.Checkbox('RecordOnMove', default=False, k='-CB-')],
+
+                [sg.Text('RecordInterval'), sg.Slider(range=(0.01, 2), orientation='h', size=(10, 10), resolution=0.01, default_value=1, key='-SKIDER-'),], 
+
+                [sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color()), sg.Checkbox('CameraDefaults', default=False, k='-CB-', enable_events=True), sg.HorizontalSeparator(pad=(0, 20), color=sg.theme_background_color())],
                     ]
 
     recording_layout = [
-                        [sg.Checkbox('RecordUIVisible', default=True, k='-CB-')],
-                        [sg.Checkbox('RecordOnMove', default=False, k='-CB-')], 
-                        [sg.Text('RecordInterval'), sg.Slider(range=(0.01, 2), orientation='h', size=(10, 10), resolution=0.1, default_value=1, key='-SKIDER-'),], 
+                        [sg.Checkbox('Enabled', default=False, k='-CB-')], 
+
                         
                         [sg.Image(data=sg.DEFAULT_BASE64_ICON,  k='-IMAGE-')],
                         [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'), sg.Button('Test Progress bar')]
                         ]
 
-    logging_layout = [[sg.Text("Anything printed will display here!")],
-                      [sg.Multiline(size=(60,15), font='Courier 8', expand_x=True, expand_y=True, write_only=True,
+    vehicles_layout = [
+        [sg.Text("Anything printed will display here!")],
+        [sg.Multiline(size=(60,15), font='Courier 8', expand_x=True, expand_y=True, write_only=True,
                                     reroute_stdout=True, reroute_stderr=True, echo_stdout_stderr=True, autoscroll=True, auto_refresh=True)]
                       # [sg.Output(size=(60,15), font='Courier 8', expand_x=True, expand_y=True)]
                       ]
     
-    graphing_layout = [[sg.Text("Anything you would use to graph will display here!")],
-                      [sg.Graph((200,200), (0,0),(200,200),background_color="black", key='-GRAPH-', enable_events=True,
-                                right_click_menu=graph_right_click_menu_def)],
-                      [sg.T('Click anywhere on graph to draw a circle')],
-                      [sg.Table(values=data, headings=headings, max_col_width=25,
-                                background_color='black',
-                                auto_size_columns=True,
-                                display_row_numbers=True,
-                                justification='right',
-                                num_rows=2,
-                                alternating_row_color='black',
-                                key='-TABLE-',
-                                row_height=25)]]
+    # camera_layout = [[sg.Text("Anything you would use to graph will display here!")],
+    #                   [sg.Graph((200,200), (0,0),(200,200),background_color="black", key='-GRAPH-', enable_events=True,
+    #                             right_click_menu=graph_right_click_menu_def)],
+    #                   [sg.T('Click anywhere on graph to draw a circle')],
+    #                   [sg.Table(values=data, headings=headings, max_col_width=25,
+    #                             background_color='black',
+    #                             auto_size_columns=True,
+    #                             display_row_numbers=True,
+    #                             justification='right',
+    #                             num_rows=2,
+    #                             alternating_row_color='black',
+    #                             key='-TABLE-',
+    #                             row_height=25)]]
 
-    popup_layout = [[sg.Text("Popup Testing")],
-                    [sg.Button("Open Folder")],
-                    [sg.Button("Open File")]]
+
+
+    cameras_layout = [
+        [sg.Text("Popup Testing")],
+        [sg.Button("Open Folder")],
+        [sg.Button("Open File")]
+                    ]
     
-    theme_layout = [[sg.Text("See how elements look under different themes by choosing a different theme here!")],
+    load_layout = [[sg.Text("Load and analyze settings file here. ")],
                     [sg.Listbox(values = sg.theme_list(), 
                       size =(20, 12), 
                       key ='-THEME LISTBOX-',
@@ -75,10 +101,9 @@ def make_window():
                 [sg.Text('Demo Of (Almost) All Elements', size=(38, 1), justification='center', font=("Helvetica", 16), relief=sg.RELIEF_RIDGE, k='-TEXT HEADING-', enable_events=True)]]
     layout +=[[sg.TabGroup([[  sg.Tab('Global Settings', global_layout),
                                sg.Tab('Recording', recording_layout),
-                               sg.Tab('Graphing', graphing_layout),
-                               sg.Tab('Popups', popup_layout),
-                               sg.Tab('Theming', theme_layout),
-                               sg.Tab('Output', logging_layout)]], key='-TAB GROUP-', expand_x=True, expand_y=True),
+                               sg.Tab('Camera Settings', cameras_layout),
+                               sg.Tab('Load From..', load_layout),
+                               sg.Tab('Vehicles', vehicles_layout)]], key='-TAB GROUP-', expand_x=True, expand_y=True),
 
                ]]
     layout[-1].append(sg.Sizegrip())
@@ -102,7 +127,7 @@ def main():
             print("[LOG] Clicked Exit!")
             break
 
-        window['-GIF-IMAGE-'].update_animation(sg.DEFAULT_BASE64_LOADING_GIF, time_between_frames=100)
+        # window['-GIF-IMAGE-'].update_animation(sg.DEFAULT_BASE64_LOADING_GIF, time_between_frames=100)
         if event == 'About':
             print("[LOG] Clicked About!")
             sg.popup('PySimpleGUI Demo All Elements',

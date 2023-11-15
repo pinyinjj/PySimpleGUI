@@ -19,11 +19,11 @@
       √"RecordInterval": 0.05,
       ?"Folder": "",
       √"Enabled": false,
-      "Cameras": [
+      ?"Cameras": [
           { "CameraName": "0", "ImageType": 0, "PixelsAsFloat": false,  "VehicleName": "", "Compress": true }
       ]
     },
-    "CameraDefaults": {
+    √"CameraDefaults": {
       "CaptureSettings": [
         {
           "ImageType": 0,
@@ -78,27 +78,27 @@
         ]
       }
     },
-    "OriginGeopoint": {
-      "Latitude": 47.641468,
-      "Longitude": -122.140165,
-      "Altitude": 122
+    √"OriginGeopoint": {
+      √"Latitude": 47.641468,
+      √"Longitude": -122.140165,
+      √"Altitude": 122
     },
-    "TimeOfDay": {
-      "Enabled": false,
+    √"TimeOfDay": {
+      √"Enabled": false,
       "StartDateTime": "",
-      "CelestialClockSpeed": 1,
-      "StartDateTimeDst": false,
-      "UpdateIntervalSecs": 60
+      √"CelestialClockSpeed": 1,
+      √"StartDateTimeDst": false,
+      √"UpdateIntervalSecs": 60
     },
     "SubWindows": [
       {"WindowID": 0, "CameraName": "0", "ImageType": 3, "VehicleName": "", "Visible": false, "External": false},
       {"WindowID": 1, "CameraName": "0", "ImageType": 5, "VehicleName": "", "Visible": false, "External": false},
       {"WindowID": 2, "CameraName": "0", "ImageType": 0, "VehicleName": "", "Visible": false, "External": false}
     ],
-    "SegmentationSettings": {
-      "InitMethod": "",
-      "MeshNamingMethod": "",
-      "OverrideExisting": true
+    ?"SegmentationSettings": {
+      ?"InitMethod": "",
+      ?"MeshNamingMethod": "",
+      ?"OverrideExisting": true
     },
     "PawnPaths": {
       "BareboneCar": {"PawnBP": "Class'/AirSim/VehicleAdv/Vehicle/VehicleAdvPawn.VehicleAdvPawn_C'"},
